@@ -1,0 +1,6 @@
+﻿  FBullCowGame.cpp
+e:\universidad\3º año esne\unreal\unreal c++\bullcowproject\fbullcowgame.cpp(65): warning C4018: '<': no coinciden signed/unsigned
+e:\universidad\3º año esne\unreal\unreal c++\bullcowproject\fbullcowgame.cpp(67): warning C4018: '<': no coinciden signed/unsigned
+  Source.cpp
+  Generando código...
+  BullCowProject.vcxproj -> E:\Universidad\3º Año ESNE\UNREAL\Unreal C++\Debug\BullCowProject.exe
