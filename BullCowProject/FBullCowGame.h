@@ -16,6 +16,16 @@ struct FBullCowCount
 	int32 Cows  = 0;
 };
 
+enum class EGuessStatus
+{
+	Invalid,
+	OK, 
+	Not_Isogram,
+	Wrong_Length,
+	Not_LowerCase, 
+	Not_Letters
+};
+
 /// Clase
 class FBullCowGame
 {
@@ -30,11 +40,15 @@ public:
 	int32   GetCurrentTry() const;
 	FString GetHiddenWord() const;
 
-	bool    IsGameWon()     ;
+	bool GuessIsogram(FString);
+	bool LowerCase(FString);
+	bool NotLetters(FString);
+
+	bool IsGameWon();
 	/// Función que resetea los valores
 	void Reset();
 	/// Función que comprueba si la palabra introducida en cada intento es válida
-	bool CheckGuessValidity(FString);
+	EGuessStatus CheckGuessValidity(FString);
 	/// 
 	FBullCowCount SumitGuess(FString);
 

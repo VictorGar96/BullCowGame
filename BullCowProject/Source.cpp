@@ -41,7 +41,8 @@ void PrintIntro()
 {
 	
 	std::cout << "Welcome..\n";
-	std::cout << "Can you guess the " << BCGame.GetHiddenWord().length() << " letter isogram Im thinking of? \n";
+	std::cout << "Can you guess the " << BCGame.GetHiddenWord().length() 
+			  << " letter isogram Im thinking of? \n";
 }
 
 /// Función que resetea los valores:
@@ -53,12 +54,13 @@ void PlayGame()
 {
 	BCGame.Reset();
 	
-
 	for (int32 i = BCGame.GetCurrentTry(); i < BCGame.GetMaxTries(); i++)
 	{
 		FString guess = GetGuess();
 
 		FBullCowCount bullCowCount = BCGame.SumitGuess(guess);
+
+		EGuessStatus status = BCGame.CheckGuessValidity(guess);
 
 		std::cout << std::endl << "Bulls = " << bullCowCount.Bulls << std::endl;
 		std::cout << "Cows  = " << bullCowCount.Cows  << std::endl;
@@ -77,13 +79,33 @@ void PlayGame()
 FString GetGuess()
 {
 	FString  guess = "";
+	EGuessStatus status = EGuessStatus::Invalid;
+
 	do
 	{
-	std::cout << "Enter your guess: ";
+		std::cout << "Enter your guess: ";
+		std::getline(std::cin, guess);
 
-	std::getline(std::cin, guess);
+		EGuessStatus status = BCGame.CheckGuessValidity(guess);
 
-	} while (BCGame.CheckGuessValidity(guess));
+		switch (status)
+		{
+		case EGuessStatus::Not_Isogram:
+			std::cout << "Please enter a word without reapeating letters. \n";
+			break;
+		case EGuessStatus::Wrong_Length:
+			std::cout << "Please enter a " << BCGame.GetHiddenWord().length() << " letter word. \n";
+			break;
+		case EGuessStatus::Not_LowerCase:
+			std::cout << "Please enter a lower case letters. \n";
+			break;
+		case EGuessStatus::Not_Letters:
+			std::cout << "Please enter letters only. \n";
+		case EGuessStatus::OK:
+			std::cout << "Valid \n";
+			return guess;
+		}
+	} while (status != EGuessStatus::OK);
 
 	return guess;
 }
